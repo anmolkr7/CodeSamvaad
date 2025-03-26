@@ -9,5 +9,9 @@ router.post('/register',
     body('password').isLength({min:6}).withMessage('Password must be at least 6 characters'),
     userController.createUserController)
 
-    
+router.post('/login',
+    body('email').isEmail().withMessage('Email must be a valid email address'),
+    body('password').isLength({min:6}).withMessage('Password must be 6 characters long'),
+    userController.loginController)
+
 export default router;
