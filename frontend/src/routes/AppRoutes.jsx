@@ -2,7 +2,7 @@ import React from 'react'
 import {Route,BrowserRouter as Router,Routes} from 'react-router-dom'
 import Login from '../screens/Login'
 import Register from '../screens/Register'
-import { Home } from '../screens/Home'
+import { Home } from '../screens/Home.jsx'
 const AppRoutes = () => {
   return (
     <Router>
