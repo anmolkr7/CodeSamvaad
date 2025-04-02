@@ -1,15 +1,23 @@
-import React,{useState}from "react";
+import React,{useState,useContext}from "react";
 import { Link ,useNavigate } from "react-router-dom";
 import axios from "../config/axios.js";
+import {UserContext} from "../context/userContext.jsx";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");  
+
+    const {setUser}=useContext(UserContext)
+
     const navigate= useNavigate();
     function submitHandler(e){
         e.preventDefault(); // Prevent default form submission
         axios.post("/users/login", { email, password })
         .then((response) => {
             console.log(response.data);
+
+            localStorage.setItem("token",response.data.token) // Store token in local storage
+            setUser(response.data.user) // Set user in context
             navigate("/"); // Redirect to home page after successful login
         }).catch((error) => {
             console.error(error.response.data);
