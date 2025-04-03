@@ -12,3 +12,10 @@ export const createUser=async({
     });
     return user;   
 }
+
+export const getAllUsers=async({userId})=>{
+    const users=await userModel.find({
+        _id:{$ne:userId}  //get all users except the logged in user
+    })
+    return users;
+}
