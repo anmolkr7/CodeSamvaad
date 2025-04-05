@@ -1,39 +1,75 @@
-import React,{useContext,useState} from 'react'
+import React,{useContext,useEffect,useState} from 'react'
 import {UserContext} from "../context/userContext.jsx";
 import axios from '../config/axios.js'
+import { useNavigate } from 'react-router-dom';
 export const Home = () => {
-  const {user}=useContext(UserContext)
-  const [isModalOpen,setIsModalOpen]=useState(false);
-  const [projectName,setProjectName]=useState("");
+    const {user}=useContext(UserContext)
+    const [isModalOpen,setIsModalOpen]=useState(false);
+    const [projectName,setProjectName]=useState("");
+    const [project,setProject]=useState([]);
 
+    const navigate=useNavigate()
 
-  function createProject(e) {
-    e.preventDefault()
-    console.log({ projectName })
+    function createProject(e) {
+        e.preventDefault()
+        console.log({ projectName })
 
-    axios.post('/projects/create', {
-        name: projectName,
-    })
+        axios.post('/projects/create', {
+            name: projectName,
+        })
+            .then((res) => {
+                console.log(res)
+                setIsModalOpen(false)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+}  
+    useEffect(() => {
+        axios.get('projects/all')
         .then((res) => {
-            console.log(res)
-            setIsModalOpen(false)
+            setProject(res.data.projects)
         })
         .catch((error) => {
             console.log(error)
         })
-}  
-  return (
-    <main className='p-4'>
-      <div className='projects'>
-          <button 
-          onClick={() => setIsModalOpen(true)}
-          className='project p-4 border
-           border-slate-300 rounded-md'>
-            New Project
-          <i className="ri-add-line ml-2"></i>
-          </button>
-      </div>
-      {isModalOpen && (
+    }, [])
+    return (
+        <main className='p-4'>
+            <div className="projects flex flex-wrap gap-3">
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="project p-4 border border-slate-300 rounded-md">
+                    New Project
+                    <i className="ri-link ml-2"></i>
+                </button>
+
+                {
+                    project.map((project) => (
+                        <div key={project._id}
+                            onClick={() => {
+                                navigate(`/project`, {
+                                    state: { project }
+                                })
+                            }}
+                            className="project flex flex-col gap-2 cursor-pointer p-4 border border-slate-300 rounded-md min-w-52 hover:bg-slate-200">
+                            <h2
+                                className='font-semibold'
+                            >{project.name}</h2>
+
+                            <div className="flex gap-2">
+                                <p> <small> <i className="ri-user-line"></i> Collaborators</small> :</p>
+                                {project.users.length}
+                            </div>
+
+                        </div>
+                    ))
+                }
+
+
+            </div>
+
+            {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded-md shadow-md w-1/3">
                         <h2 className="text-xl mb-4">Create New Project</h2>
@@ -53,6 +89,8 @@ export const Home = () => {
                     </div>
                 </div>
             )}
-    </main>
-  )
+
+
+        </main>
+    )
 }
