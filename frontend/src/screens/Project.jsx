@@ -3,7 +3,7 @@ import { useState,useContext,useRef,useEffect } from "react";
 import { useLocation, useNavigate} from "react-router-dom";
 import axios from "../config/axios";
 import { UserContext } from "../context/userContext";
-import { initializeSocket } from "../config/socket";
+import { initializeSocket, receiveMessage, sendMessage } from "../config/socket";
 const Project=() => { 
     const location=useLocation()
     const { user } = useContext(UserContext)
@@ -13,7 +13,7 @@ const Project=() => {
     const [ project, setProject ] = useState(location.state.project)
     const [ selectedUserId, setSelectedUserId ] = useState(new Set())
     const [ fileTree, setFileTree ] = useState({})
-
+    const [message, setMessage] = useState('')
   
 
     const handleUserClick = (id) => {
@@ -42,6 +42,15 @@ const Project=() => {
         })
 
     }
+
+    function send(){
+        sendMessage('project-message', {
+            message,
+            sender:user._id
+        })
+        setMessage('')
+    }
+
    useEffect(() => {
         axios.get(`/projects/get-project/${location.state.project._id}`).then(res => {
             console.log(res.data.project)
@@ -50,8 +59,11 @@ const Project=() => {
         }).catch(err => {
             console.log(err)})
 
-        initializeSocket();
+        initializeSocket(project._id);
         
+        receiveMessage('project-message', (data) => {
+            console.log(data)
+        })
 
         axios.get('/users/all').then(res => {
             setUsers(res.data.users)
@@ -83,8 +95,12 @@ const Project=() => {
                         </div>
                     </div>
                     <div className="inputField w-full flex ">
-                        <input className="p-2 px-4 border-none outline-none flex-grow"type="text" placeholder="Enter your message"></input>
-                        <button className="px-4 bg-slate-400 text-white rounded-r hover:bg-slate-500 transition flex items-center justify-center">
+                        <input value={message}
+                        onChange={(e)=>setMessage(e.target.value)}
+                        className="p-2 px-4 border-none outline-none flex-grow"type="text" placeholder="Enter your message"></input>
+                        <button
+                        onClick={send}
+                        className="px-4 bg-slate-400 text-white rounded-r hover:bg-slate-500 transition flex items-center justify-center">
                             <i className="ri-send-plane-fill text-xl"></i>
                         </button>
                     </div>
