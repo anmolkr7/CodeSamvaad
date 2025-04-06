@@ -3,6 +3,7 @@ import { useState,useContext,useRef,useEffect } from "react";
 import { useLocation, useNavigate} from "react-router-dom";
 import axios from "../config/axios";
 import { UserContext } from "../context/userContext";
+import { initializeSocket } from "../config/socket";
 const Project=() => { 
     const location=useLocation()
     const { user } = useContext(UserContext)
@@ -48,6 +49,10 @@ const Project=() => {
             setFileTree(res.data.project.fileTree || {})
         }).catch(err => {
             console.log(err)})
+
+        initializeSocket();
+        
+
         axios.get('/users/all').then(res => {
             setUsers(res.data.users)
         }).catch(err => {
