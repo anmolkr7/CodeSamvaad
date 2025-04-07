@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { useState,useContext,useRef,useEffect } from "react";
 import { useLocation, useNavigate} from "react-router-dom";
 import axios from "../config/axios";
@@ -14,7 +14,7 @@ const Project=() => {
     const [ selectedUserId, setSelectedUserId ] = useState(new Set())
     const [ fileTree, setFileTree ] = useState({})
     const [message, setMessage] = useState('')
-  
+    const messageBox=useRef(null)
 
     const handleUserClick = (id) => {
         setSelectedUserId(prevSelectedUserId => {
@@ -46,8 +46,9 @@ const Project=() => {
     function send(){
         sendMessage('project-message', {
             message,
-            sender:user._id
+            sender:user
         })
+        appendOutgoingMessage(message)
         setMessage('')
     }
 
@@ -63,6 +64,7 @@ const Project=() => {
         
         receiveMessage('project-message', (data) => {
             console.log(data)
+            appendIncomingMessage(data)
         })
 
         axios.get('/users/all').then(res => {
@@ -71,6 +73,36 @@ const Project=() => {
             console.log(err)
         })
     }, [])
+
+    function appendIncomingMessage(messageObject) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', 'max-w-56', 'flex', 'flex-col', 'p-2', 'bg-slate-50', 'w-fit', 'rounded-md');
+        messageElement.innerHTML = `
+            <small class="opacity-65 text-xs">${messageObject.sender.email}</small>
+            <p class="text-sm">${messageObject.message}</p>`;
+        if (messageBox.current) {
+            messageBox.current.appendChild(messageElement);
+            setTimeout(() => {
+                messageBox.current.scrollTop = messageBox.current.scrollHeight;
+            }, 0);
+        }
+    }
+    
+    function appendOutgoingMessage(messageObject) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('ml-auto', 'max-w-56', 'flex', 'flex-col', 'p-2', 'bg-slate-50', 'w-fit', 'rounded-md');
+        messageElement.innerHTML = `
+            <small class="opacity-65 text-xs">${user.email}</small>
+            <p class="text-sm">${messageObject}</p>`;
+        if (messageBox.current) {
+            messageBox.current.appendChild(messageElement);
+            setTimeout(() => {
+                messageBox.current.scrollTop = messageBox.current.scrollHeight;
+            }, 0);
+        }
+    }
+
+
     return (
         <main className="h-full w-full flex">
             <section className="left flex flex-col h-full min-w-72 bg-slate-300 relative">
@@ -83,16 +115,11 @@ const Project=() => {
                     <i className="ri-group-fill"></i>
                     </button>
                 </header>
-                <div className="conversation-area flex flex-col flex-grow">
-                    <div className="message-box p-1 flex-grow flex flex-col gap-1">
-                        <div className="incoming-message max-w-56 flex flex-col p-2 bg-slate-50 w-fit rounded-md">
-                            <small className="opacity-65 text-xs">example@gmail.com</small>
-                            <p className="text-sm">Lorem lorem20ipsum dolor sit amet consectetur adipisicing elit. Omnis, dolores.</p>
-                        </div>
-                        <div className="outgoing-message ml-auto max-w-56 flex flex-col p-2 bg-slate-50 w-fit rounded-md">
-                            <small className="opacity-65 text-xs">example@gmail.com</small>
-                            <p className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        </div>
+                <div className="conversation-area flex flex-col flex-grow overflow-hidden">
+                    <div 
+                    ref={messageBox}
+                    className="message-box p-1 flex-grow flex flex-col gap-1 overflow-y-auto max-h-full">
+                       
                     </div>
                     <div className="inputField w-full flex ">
                         <input value={message}
