@@ -124,6 +124,12 @@ const Project=() => {
                     <div className="inputField w-full flex ">
                         <input value={message}
                         onChange={(e)=>setMessage(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                send();
+                            }
+                        }}
                         className="p-2 px-4 border-none outline-none flex-grow"type="text" placeholder="Enter your message"></input>
                         <button
                         onClick={send}
