@@ -1,19 +1,23 @@
-import React from 'react'
-import AppRoutes from './routes/AppRoutes'
-import { UserProvider } from './context/userContext'
-import Navbar from './components/Navbar'
-function App() {
+// src/App.jsx
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { UserProvider } from './context/userContext.jsx';
+import Navbar from './components/Navbar.jsx';
+import AppRoutes from './routes/AppRoutes.jsx';
 
-  return (
-    <UserProvider>
-    <div className="flex flex-col h-screen">
-    <Navbar />
-    <div className="flex-grow overflow-hidden">
-      <AppRoutes />
-    </div>
-    </div>
-    </UserProvider>
-  )
-}
+const App = () => {
+    return (
+        <UserProvider>
+            <Router>
+                <div className="h-screen flex flex-col overflow-hidden">
+                    <Navbar />
+                    <div className="flex-grow overflow-hidden">
+                        <AppRoutes />
+                    </div>
+                </div>
+            </Router>
+        </UserProvider>
+    );
+};
 
-export default App
+export default App;

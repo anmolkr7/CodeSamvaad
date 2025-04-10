@@ -8,14 +8,14 @@ import UserAuth from '../auth/userAuth.jsx';
 
 const AppRoutes = () => {
     return (
-        <Router>
+        
             <Routes>
                 <Route path="/" element={<UserAuth><Home /></UserAuth>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/project" element={<UserAuth><Project /></UserAuth>} />
             </Routes>
-        </Router>
+        
     );
 };
 
