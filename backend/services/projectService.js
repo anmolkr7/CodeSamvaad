@@ -67,3 +67,14 @@ export const getProjectById=async({projectId})=>{
     }).populate('users') //populate users field with user details
     return project
 }
+
+export const updateFileTree = async ({ projectId, fileTree }) => {
+    console.log("Updating project", projectId, "with fileTree:", fileTree);
+    const project = await projectModel.findOneAndUpdate(
+        { _id: projectId },
+        { fileTree },
+        { new: true }
+    );
+    console.log("Updated project:", project);
+    return project;
+};
