@@ -8,12 +8,13 @@ import mongoose from 'mongoose'
 import projectModel from './models/projectModel.js'
 import { generateResult } from './services/aiService.js';
 
-const port=process.env.PORT || 3000;
+const port=process.env.PORT || 8080;
 const server=http.createServer(app);
 
 const io =new Server(server,{
     cors:{
-        origin:'*'
+        origin: '*',
+        credentials: true
     }
 })
 
