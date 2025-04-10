@@ -318,7 +318,7 @@ const Project = () => {
                                 }}
                                 className="p-2 px-4 bg-slate-300 text-white"
                             >
-                                run
+                                Run
                             </button>
                         </div>
                     </div>
