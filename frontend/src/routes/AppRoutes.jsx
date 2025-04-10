@@ -13,7 +13,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<UserAuth><Home /></UserAuth>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/project/:id" element={<UserAuth><Project /></UserAuth>} />
+                <Route path="/projects/:id" element={<UserAuth><Project /></UserAuth>} />
             </Routes>
         </Router>
     );
