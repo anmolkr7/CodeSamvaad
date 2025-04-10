@@ -12,6 +12,7 @@ router.post('/create',
 
 router.get('/all',authMiddleware.authUser,projectController.getAllProject)
 
+
 router.put('/add-user',
     authMiddleware.authUser,
     body('projectId').isString().withMessage('Project Id is required'),
