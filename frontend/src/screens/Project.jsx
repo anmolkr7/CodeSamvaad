@@ -1,6 +1,6 @@
 import React, { createRef } from "react";
 import { useState,useContext,useRef,useEffect } from "react";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useParams,useLocation, useNavigate} from "react-router-dom";
 import axios from "../config/axios";
 import { UserContext } from "../context/userContext";
 import { initializeSocket, receiveMessage, sendMessage } from "../config/socket";
@@ -24,6 +24,8 @@ function SyntaxHighlightedCode(props) {
 
 
 const Project=() => { 
+    const { id: projectId } = useParams();
+    const navigate = useNavigate();
     const location=useLocation()
     const { user } = useContext(UserContext)
     const [isSidePanelOpen,setIsSidePanelOpen]=useState(false)
@@ -99,30 +101,27 @@ const Project=() => {
         setMessage('')
     }
 
-   useEffect(() => {
-        axios.get(`/projects/get-project/${location.state.project._id}`).then(res => {
-            console.log(res.data.project)
-            setProject(res.data.project)
-            setFileTree(res.data.project.fileTree || {})
-            saveFileTree(res.data.project.fileTree || {})
-        }).catch(err => {
-            console.log(err)})
+    useEffect(() => {
+        axios.get(`/projects/get-project/${projectId}`)
+            .then(res => {
+                setProject(res.data.project);
+                setFileTree(res.data.project.fileTree || {});
+                saveFileTree(res.data.project.fileTree || {});
+            })
+            .catch(err => {
+                console.log(err);
+                navigate('/'); // Redirect if project fetch fails
+            });
 
-        initializeSocket(project._id);
+        initializeSocket(projectId);
         if (!webContainer) {
             getWebContainer().then(container => {
-                setWebContainer(container)
-                console.log("container started")
-            })
+                setWebContainer(container);
+                console.log("container started");
+            });
         }
         receiveMessage('project-message', (data) => {
             const message = JSON.parse(data.message);
-            console.log("Received message:", message);
-            console.log("New fileTree from message:", message.fileTree);
-            console.log("Current fileTree before update:", fileTree);
-            console.log("Current openFiles before update:", openFiles);
-            console.log("Current file before update:", currentFile);
-        
             if (message.fileTree) {
                 const newFileTree = { ...message.fileTree };
                 webContainer?.mount(newFileTree);
@@ -131,22 +130,13 @@ const Project=() => {
                 setOpenFiles(updatedOpenFiles);
                 const newCurrentFile = newFileTree.hasOwnProperty(currentFile) ? currentFile : Object.keys(newFileTree)[0] || null;
                 setCurrentFile(newCurrentFile);
-                
-                console.log("Updated fileTree after set:", newFileTree);
-                console.log("Updated openFiles after set:", updatedOpenFiles);
-                console.log("Updated currentFile after set:", newCurrentFile);
-            } else {
-                console.log("No fileTree in message, keeping current fileTree");
             }
-        
             appendIncomingMessage(data);
         });
-        axios.get('/users/all').then(res => {
-            setUsers(res.data.users)
-        }).catch(err => {
-            console.log(err)
-        })
-    }, [])
+        axios.get('/users/all')
+            .then(res => setUsers(res.data.users))
+            .catch(err => console.log(err));
+    }, [projectId, navigate]);
 
     function appendIncomingMessage(messageObject) {
         setMessages(prevMessages => [
