@@ -1,6 +1,6 @@
 import React, { createRef } from "react";
 import { useState,useContext,useRef,useEffect } from "react";
-import { useParams,useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import axios from "../config/axios";
 import { UserContext } from "../context/userContext";
 import { initializeSocket, receiveMessage, sendMessage } from "../config/socket";
@@ -24,7 +24,7 @@ function SyntaxHighlightedCode(props) {
 
 
 const Project=() => { 
-    const { id: projectId } = useParams();
+   
     const navigate = useNavigate();
     const location=useLocation()
     const { user } = useContext(UserContext)
@@ -102,15 +102,25 @@ const Project=() => {
     }
 
     useEffect(() => {
+        if (!location.state?.project) {
+            console.error('No project provided in location.state');
+            navigate('/');
+            return;
+        }
+
+        const projectId = location.state.project._id; // Access _id from state
+        console.log('projectId from location.state:', projectId);
+
         axios.get(`/projects/get-project/${projectId}`)
             .then(res => {
+                console.log('Project data:', res.data.project);
                 setProject(res.data.project);
                 setFileTree(res.data.project.fileTree || {});
                 saveFileTree(res.data.project.fileTree || {});
             })
             .catch(err => {
-                console.log(err);
-                navigate('/'); // Redirect if project fetch fails
+                console.error('Project fetch error:', err.response?.data || err);
+                navigate('/');
             });
 
         initializeSocket(projectId);
@@ -136,7 +146,7 @@ const Project=() => {
         axios.get('/users/all')
             .then(res => setUsers(res.data.users))
             .catch(err => console.log(err));
-    }, [projectId, navigate]);
+    }, [location.state?.project, navigate]);
 
     function appendIncomingMessage(messageObject) {
         setMessages(prevMessages => [
