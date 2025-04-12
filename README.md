@@ -64,6 +64,7 @@
       - **screens**
       - `App.jsx`
       - `index.css`
+      - `Landing.css`
       - `main.jsx`
     - `.gitignore`
     - `README.md`
