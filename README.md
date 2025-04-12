@@ -25,7 +25,55 @@
   - JWT for authentication
 
 ## File Tree
-/CodeSamvaad ├── backend │ ├── controllers │ │ ├── aiController.js │ │ ├── projectController.js │ │ └── userController.js │ ├── db │ │ └── db.js │ ├── middlewares │ │ └── authMiddleware.js │ ├── models │ │ ├── projectModel.js │ │ └── userModel.js │ ├── routes │ │ ├── aiRoutes.js │ │ ├── projectRoutes.js │ │ └── userRoutes.js │ ├── services │ │ ├── aiService.js │ │ ├── projectService.js │ │ ├── redisService.js │ │ └── userService.js │ ├── app.js │ ├── server.js │ └── package.json ├── frontend │ ├── public │ │ ├── logo.png │ │ └── vite.svg │ ├── src │ │ ├── assets │ │ ├── auth │ │ ├── components │ │ ├── config │ │ ├── context │ │ ├── routes │ │ ├── screens │ │ ├── App.jsx │ │ ├── index.css │ │ └── main.jsx │ ├── .gitignore │ ├── README.md │ ├── index.html │ ├── package.json │ ├── postcss.config.js │ ├── tailwind.config.js │ └── vite.config.js └── .gitignore └── README.md
+- **project-root**
+  - **backend**
+    - **controllers**
+      - `aiController.js`
+      - `projectController.js`
+      - `userController.js`
+    - **db**
+      - `db.js`
+    - **middlewares**
+      - `authMiddleware.js`
+    - **models**
+      - `projectModel.js`
+      - `userModel.js`
+    - **routes**
+      - `aiRoutes.js`
+      - `projectRoutes.js`
+      - `userRoutes.js`
+    - **services**
+      - `aiService.js`
+      - `projectService.js`
+      - `redisService.js`
+      - `userService.js`
+    - `app.js`
+    - `server.js`
+    - `package.json`
+  - **frontend**
+    - **public**
+      - `logo.png`
+      - `vite.svg`
+    - **src**
+      - **assets**
+      - **auth**
+      - **components**
+      - **config**
+      - **context**
+      - **routes**
+      - **screens**
+      - `App.jsx`
+      - `index.css`
+      - `main.jsx`
+    - `.gitignore`
+    - `README.md`
+    - `index.html`
+    - `package.json`
+    - `postcss.config.js`
+    - `tailwind.config.js`
+    - `vite.config.js`
+  - `.gitignore`
+  - `README.md`
 
 ## Installation
 
