@@ -10,7 +10,7 @@ const UserAuth = ({ children }) => {
     useEffect(() => {
         if (loading) return; // Wait for UserContext to load
         if (!token || !user) {
-            navigate('/login');
+            navigate('/');
         }
     }, [loading, user, token, navigate]);
 
