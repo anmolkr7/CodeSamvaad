@@ -25,56 +25,7 @@
   - JWT for authentication
 
 ## File Tree
-CodeSamvaad/
-├── backend/
-│   ├── controllers/
-│   │   ├── aiController.js
-│   │   ├── projectController.js
-│   │   └── userController.js
-│   ├── db/
-│   │   └── db.js
-│   ├── middlewares/
-│   │   └── authmiddleware.js
-│   ├── models/
-│   │   ├── projectModel.js
-│   │   └── userModel.js
-│   ├── routes/
-│   │   ├── aiRoutes.js
-│   │   ├── projectRoutes.js
-│   │   └── userRoutes.js
-│   ├── services/
-│   │   ├── aiService.js
-│   │   ├── projectService.js
-│   │   ├── redisService.js
-│   │   └── userService.js
-│   ├── app.js
-│   ├── server.js
-│   └── package.json
-├── frontend/
-│   ├── public/
-│   │   ├── logo.png
-│   │   └── vite.svg
-│   ├── src/
-│   │   ├── assets/
-│   │   ├── auth/
-│   │   ├── components/
-│   │   ├── config/
-│   │   ├── context/
-│   │   ├── routes/
-│   │   ├── screens/
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   ├── main.jsx
-│   ├── .gitignore
-│   ├── README.md
-│   ├── eslint.config.js
-│   ├── index.html
-│   ├── package.json
-│   ├── postcss.config.js
-│   ├── tailwind.config.js
-│   └── vite.config.js
-├── .gitignore
-└── README.md
+/CodeSamvaad ├── backend │ ├── controllers │ │ ├── aiController.js │ │ ├── projectController.js │ │ └── userController.js │ ├── db │ │ └── db.js │ ├── middlewares │ │ └── authMiddleware.js │ ├── models │ │ ├── projectModel.js │ │ └── userModel.js │ ├── routes │ │ ├── aiRoutes.js │ │ ├── projectRoutes.js │ │ └── userRoutes.js │ ├── services │ │ ├── aiService.js │ │ ├── projectService.js │ │ ├── redisService.js │ │ └── userService.js │ ├── app.js │ ├── server.js │ └── package.json ├── frontend │ ├── public │ │ ├── logo.png │ │ └── vite.svg │ ├── src │ │ ├── assets │ │ ├── auth │ │ ├── components │ │ ├── config │ │ ├── context │ │ ├── routes │ │ ├── screens │ │ ├── App.jsx │ │ ├── index.css │ │ └── main.jsx │ ├── .gitignore │ ├── README.md │ ├── index.html │ ├── package.json │ ├── postcss.config.js │ ├── tailwind.config.js │ └── vite.config.js └── .gitignore └── README.md
 
 ## Installation
 
@@ -128,8 +79,8 @@ cd frontend
 npm install
 npm run dev
 ```
-##Contributing
-We welcome contributions! To contribute to the project:
+## Contributing
+I welcome contributions! To contribute to the project:
 
 1.Fork the repository
 2.Create a new branch (git checkout -b feature/your-feature-name)
@@ -138,7 +89,7 @@ We welcome contributions! To contribute to the project:
 4.Push to the branch (git push origin feature/your-feature-name)
 5.Create a pull request
 
-##License
+## License
 This project is licensed under the MIT License - see the  file for details.
 
 ##Acknowledgements
