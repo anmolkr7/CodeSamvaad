@@ -130,18 +130,18 @@ npm run dev
 ## Contributing
 I welcome contributions! To contribute to the project:
 
-1.Fork the repository
-2.Create a new branch (git checkout -b feature/your-feature-name)
-3.Make your changes
-3.Commit your changes (git commit -am 'Add new feature')
-4.Push to the branch (git push origin feature/your-feature-name)
-5.Create a pull request
+1.Fork the repository  
+2.Create a new branch (git checkout -b feature/your-feature-name)  
+3.Make your changes  
+3.Commit your changes (git commit -am 'Add new feature')  
+4.Push to the branch (git push origin feature/your-feature-name)  
+5.Create a pull request  
 
 ## License
 This project is licensed under the MIT License - see the  file for details.
 
 ## Acknowledgements
-MongoDB: NoSQL database for data storage.
-React: JavaScript library for building the UI.
-Tailwind CSS: Utility-first CSS framework for styling.
-Vite: A modern build tool for fast development.
+MongoDB: NoSQL database for data storage.  
+React: JavaScript library for building the UI.  
+Tailwind CSS: Utility-first CSS framework for styling.  
+Vite: A modern build tool for fast development.  
