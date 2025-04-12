@@ -140,7 +140,7 @@ I welcome contributions! To contribute to the project:
 ## License
 This project is licensed under the MIT License - see the  file for details.
 
-##Acknowledgements
+## Acknowledgements
 MongoDB: NoSQL database for data storage.
 React: JavaScript library for building the UI.
 Tailwind CSS: Utility-first CSS framework for styling.
