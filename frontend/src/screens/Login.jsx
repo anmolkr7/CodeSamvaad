@@ -24,7 +24,7 @@ const Login = () => {
         console.log(response.data);
         localStorage.setItem("token", response.data.token);
         setUser(response.data.user);
-        setTimeout(() => navigate("/"), 500);
+        setTimeout(() => navigate("/home"), 500);
       })
       .catch((error) => {
         console.error(error.response?.data);

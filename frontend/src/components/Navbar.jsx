@@ -14,14 +14,14 @@ const Navbar = () => {
             await axios.get('/users/logout');
             localStorage.removeItem('token');
             setUser(null);
-            navigate('/login');
+            navigate('/');
         } catch (error) {
             console.error('Logout failed:', error);
         }
     };
 
     // Hide Navbar entirely on /login and /register, or show minimal version
-    if (location.pathname === '/login' || location.pathname === '/register') {
+    if (location.pathname === '/login' || location.pathname === '/register' || location.pathname==='/') {
         return null; // Or a minimal logo-only version if desired
     }
 
